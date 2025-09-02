@@ -1,6 +1,7 @@
 "use client";
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
+import { setCookie } from 'nookies';
 
 import { login } from "@/apis/bo";
 
@@ -18,6 +19,12 @@ export default function Home() {
     if (success) {
       //
       localStorage.setItem("token", data.token);
+
+      setCookie(null, 'accessToken', data.token, {
+        maxAge: 60 * 60 * 24, // 1일
+        path: '/', // 전체 경로
+      });
+
       localStorage.setItem("refToken", data.refToken);
 
       setTimeout(() => {

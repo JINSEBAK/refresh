@@ -1,6 +1,8 @@
 import axios from "axios";
 import Router from "next/router";
 
+import {  parseCookies } from 'nookies';
+
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 30000,
@@ -16,6 +18,9 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers["x-api-token"] = token;
     }
+
+    const cookies = parseCookies();
+    console.log(cookies)
 
     return config;
   },
@@ -39,7 +44,6 @@ const handleLogout = async () => {
 // 응답 인터셉터
 axiosInstance.interceptors.response.use(
   (config) => {
-    console.log(config);
     return config;
   },
 
