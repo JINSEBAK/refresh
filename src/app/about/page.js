@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getMembers } from "@/apis/bo";
 
-const AboutContainer = () => {
+export default function AboutContainer () {
   //
   const [list, setList] = useState([]);
 
@@ -39,5 +39,3 @@ const AboutContainer = () => {
     </div>
   );
 };
-
-export default AboutContainer;
