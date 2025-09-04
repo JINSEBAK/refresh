@@ -1,0 +1,46 @@
+import { useRouter } from "next/router";
+import styles from "../page.module.css";
+
+import { login } from "@/apis/bo";
+
+const Login = () => {
+  //
+  const router = useRouter();
+
+  const onSave = async () => {
+    let params = {};
+    params.lgnId = process.env.NEXT_PUBLIC_USER_ID;
+    params.lgnPswd = process.env.NEXT_PUBLIC_USER_PW;
+
+    const { success, data } = await login(params);
+
+    if (success) {
+      //
+      localStorage.setItem("token", data.token);
+
+      // setCookie(null, "accessToken", data.token, {
+      //   maxAge: 60 * 60 * 24, // 1일
+      //   path: "/" // 전체 경로
+      // });
+
+      localStorage.setItem("refToken", data.refToken);
+
+      setTimeout(() => {
+        router.push("/about");
+      }, 100);
+    } else {
+      alert(data);
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <div>Hello</div>
+      <button type="button" className={styles.btn} onClick={onSave}>
+        토큰 저장하기
+      </button>
+    </div>
+  );
+};
+
+export default Login;

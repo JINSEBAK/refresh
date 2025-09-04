@@ -1,7 +1,7 @@
 import axios from "axios";
 import Router from "next/router";
 
-import {  parseCookies } from 'nookies';
+// import {  parseCookies } from 'nookies';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -19,8 +19,8 @@ axiosInstance.interceptors.request.use(
       config.headers["x-api-token"] = token;
     }
 
-    const cookies = parseCookies();
-    console.log(cookies)
+    // const cookies = parseCookies();
+    // console.log(cookies)
 
     return config;
   },
